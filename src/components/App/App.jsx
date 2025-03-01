@@ -5,8 +5,9 @@ import SearchBox from '../SearchBox/SearchBox';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from '../../redux/contactsOps';
-import { selectError, selectLoading } from '../../redux/contactsSlice';
+
+import { fetchContacts } from '../../redux/contacts/operations';
+import { selectError, selectLoading } from '../../redux/contacts/selectors';
 
 function App() {
   const dispatch = useDispatch();
