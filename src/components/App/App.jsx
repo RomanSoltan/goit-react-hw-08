@@ -1,38 +1,30 @@
-import s from './App.module.css';
-import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
-import SearchBox from '../SearchBox/SearchBox';
-import { ToastContainer } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from '../Layout/Layout';
+import { lazy } from 'react';
 
-import { fetchContacts } from '../../redux/contacts/operations';
-import { selectError, selectLoading } from '../../redux/contacts/selectors';
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const ContactsPage = lazy(() =>
+  import('../../pages/ContactsPage/ContactsPage'),
+);
+const RegistrationPage = lazy(() =>
+  import('../../pages/RegistrationPage/RegistrationPage'),
+);
+const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
+const NotFoundPage = lazy(() =>
+  import('../../pages/NotFoundPage/NotFoundPage'),
+);
 
 function App() {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading);
-  const isError = useSelector(selectError);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    dispatch(fetchContacts({ signal: abortController.signal }));
-    return () => {
-      abortController.abort();
-    };
-  }, [dispatch]);
-
   return (
-    <div>
-      <h1 className={s.title}>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      {isLoading && !isError && (
-        <p className={s.descr}>Request in progress...</p>
-      )}
-      <ContactList />
-      <ToastContainer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+      </Route>
+      <Route path="/register" element={<RegistrationPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
 
