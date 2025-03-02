@@ -7,3 +7,18 @@
 .username {
   font-weight: 700;
 }
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 2px 2px 2px 2px grey;
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: orangered;
+  }
+}

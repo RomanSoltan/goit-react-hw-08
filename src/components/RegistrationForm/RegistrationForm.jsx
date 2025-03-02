@@ -1,8 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import s from './RegistrationForm.module.css';
+import { useDispatch } from 'react-redux';
+import { registerThunk } from '../../redux/auth/operations';
 
 const RegistrationForm = () => {
+  const dispatch = useDispatch();
+
   const initialValues = {
     name: '',
     email: '',
@@ -11,6 +15,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = (values, options) => {
     console.log(values);
+    dispatch(registerThunk(values));
     options.resetForm();
   };
 
@@ -32,10 +37,6 @@ const RegistrationForm = () => {
       .matches(/[A-Z]/, 'Password must contain one uppercase letter')
       .matches(/[^\w]/, 'Password must contain one special character')
       .required('Please, enter your password'),
-    confirm: Yup.string().oneOf(
-      [Yup.ref('pass'), null],
-      'Must match "password" field value',
-    ),
   });
 
   return (
@@ -77,16 +78,6 @@ const RegistrationForm = () => {
             />
             <ErrorMessage className={s.error} component="p" name="password" />
           </label>
-          {/* <label className={s.label}>
-            <span>Confirm Password:</span>
-            <Field
-              className={s.input}
-              type="password"
-              name="confirm"
-              placeholder="Enter password"
-            />
-            <ErrorMessage className={s.error} component="p" name="confirm" />
-          </label> */}
           <button className={s.btn} type="submit">
             Register
           </button>

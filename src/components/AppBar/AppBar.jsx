@@ -10,12 +10,6 @@ const AppBar = () => {
 
   return (
     <header className={s.header}>
-      <p className={s.logo}>
-        <span role="img" aria-label="computer icon">
-          💻
-        </span>{' '}
-        PhoneBooks
-      </p>
       <Navigation />
       {isLoggedIn ? <UserMenu /> : <AuthNav />}
     </header>
