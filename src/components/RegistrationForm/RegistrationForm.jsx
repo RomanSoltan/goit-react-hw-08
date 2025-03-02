@@ -1,4 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
 import s from './RegistrationForm.module.css';
 
 const RegistrationForm = () => {
@@ -13,9 +14,38 @@ const RegistrationForm = () => {
     options.resetForm();
   };
 
+  const onlyLetters = /^[A-Za-zА-Яа-яЄєІіЇїҐґ-\s]+$/;
+
+  const registrationFormSchema = Yup.object().shape({
+    name: Yup.string()
+      .matches(onlyLetters, 'Are your parents programmers? Use only letters')
+      .min(2, 'Too short')
+      .max(50, 'Too long')
+      .required('Please, enter your name'),
+    email: Yup.string()
+      .email('Must be a valid email!')
+      .required('Please, enter your email'),
+    password: Yup.string()
+      .min(8, 'Password must be 8 characters long')
+      .matches(/[0-9]/, 'Password must contain one number')
+      .matches(/[a-z]/, 'Password must contain one lowercase letter')
+      .matches(/[A-Z]/, 'Password must contain one uppercase letter')
+      .matches(/[^\w]/, 'Password must contain one special character')
+      .required('Please, enter your password'),
+    confirm: Yup.string().oneOf(
+      [Yup.ref('pass'), null],
+      'Must match "password" field value',
+    ),
+  });
+
   return (
     <section className={s.formWrapper}>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <h2>Register your account!</h2>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={registrationFormSchema}
+      >
         <Form className={s.form}>
           <label className={s.label}>
             <span>Name:</span>
@@ -47,6 +77,16 @@ const RegistrationForm = () => {
             />
             <ErrorMessage className={s.error} component="p" name="password" />
           </label>
+          {/* <label className={s.label}>
+            <span>Confirm Password:</span>
+            <Field
+              className={s.input}
+              type="password"
+              name="confirm"
+              placeholder="Enter password"
+            />
+            <ErrorMessage className={s.error} component="p" name="confirm" />
+          </label> */}
           <button className={s.btn} type="submit">
             Register
           </button>

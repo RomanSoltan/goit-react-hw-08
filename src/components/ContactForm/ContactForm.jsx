@@ -1,9 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import s from './ContactForm.module.css';
 import { useId } from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contacts/operations';
+import s from './ContactForm.module.css';
 
 const ContactForm = () => {
   const initialValues = {
@@ -22,11 +22,11 @@ const ContactForm = () => {
   const contactFormSchema = Yup.object().shape({
     name: Yup.string()
       .matches(onlyLetters, 'Are your parents programmers? Use only letters')
-      .min(3, 'Too short')
+      .min(2, 'Too short')
       .max(50, 'Too long')
-      .required('Write something'),
+      .required('Please, enter name'),
     number: Yup.string()
-      .required('Write something')
+      .required('Please, enter phone number')
       .matches(
         PatternPhone,
         'You are definitely learning JS. Number format ХХХ-ХХ-ХХ',
