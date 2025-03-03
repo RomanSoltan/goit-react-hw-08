@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const api = axios.create({
   baseURL: 'https://connections-api.goit.global/',
-  // headers:
 });
 
 const setAuthHeader = token => {
@@ -13,9 +12,6 @@ const setAuthHeader = token => {
 const clearAuthHeader = () => {
   api.defaults.headers.common.Authorization = '';
 };
-
-// asdfff2@mial.com
-// 1!Qqqqqq
 
 export const registerThunk = createAsyncThunk(
   'auth/register',
@@ -71,3 +67,6 @@ export const refreshUser = createAsyncThunk(
     }
   },
 );
+
+// asdfff2@mial.com
+// 1!Qqqqqq
