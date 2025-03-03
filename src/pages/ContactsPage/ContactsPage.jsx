@@ -20,7 +20,7 @@ const ContactsPage = () => {
     };
   }, [dispatch]);
   return (
-    <div>
+    <section>
       <h1 className={s.title}>Phonebook</h1>
       <ContactForm />
       <SearchBox />
@@ -28,7 +28,7 @@ const ContactsPage = () => {
         <p className={s.descr}>Request in progress...</p>
       )}
       <ContactList />
-    </div>
+    </section>
   );
 };
 export default ContactsPage;

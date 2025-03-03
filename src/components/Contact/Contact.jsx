@@ -3,6 +3,7 @@ import { HiPhone } from 'react-icons/hi';
 import s from './Contact.module.css';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contacts/operations';
+import toast from 'react-hot-toast';
 
 const Contact = ({ name, number, id }) => {
   const dispatch = useDispatch();
@@ -18,7 +19,13 @@ const Contact = ({ name, number, id }) => {
         </p>
       </div>
       <div className={s.btnWrap}>
-        <button className={s.btn} onClick={() => dispatch(deleteContact(id))}>
+        <button
+          className={s.btn}
+          onClick={() => {
+            dispatch(deleteContact(id));
+            toast.success('Contact deleted');
+          }}
+        >
           Delete
         </button>
       </div>
