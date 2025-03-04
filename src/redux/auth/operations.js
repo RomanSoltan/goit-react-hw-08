@@ -1,3 +1,7 @@
+// for login
+// email: asdfff2@mial.com
+// password: 1!Qqqqqq
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -67,6 +71,3 @@ export const refreshUser = createAsyncThunk(
     }
   },
 );
-
-// asdfff2@mial.com
-// 1!Qqqqqq
